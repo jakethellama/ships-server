@@ -1,6 +1,6 @@
 export class Packet {
-    commands;
+    keyCommands;
     constructor() {
-        this.commands = [];
+        this.keyCommands = [];
     }
 }

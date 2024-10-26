@@ -1,5 +1,5 @@
-export class Command {
-    // Command0 + State0 = State1
+export class ActCommand {
+    // ActCommand0 + State0 = State1
     cid;
     right;
     left;

@@ -10,17 +10,21 @@ export function setCustomInterval(fn, ms: number): number {
 }
 
 export function clearCustomInterval(id: number): void {
-    intervals.get(id)![0] = false;
-    intervals.delete(id);
+    const on = intervals.get(id);
+    if (on) {
+        on[0] = false;
+        clearTimeout(on[1]);
+        intervals.delete(id);
+    }
 }
 
-const intervals = new Map<number, boolean[]>();
+const intervals = new Map();
 let intervalId = 0;
 
 // @ts-ignore
-function customLoop(next: number, fn, ms: number, on: boolean[]) {
+function customLoop(next: number, fn, ms: number, on) {
     if (on[0]) {
-        setTimeout(() => {
+        on[1] = setTimeout(() => {
             fn();
             customLoop(next + ms, fn, ms, on);
         }, next - Date.now());

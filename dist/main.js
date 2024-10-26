@@ -31,7 +31,7 @@ wss.on('connection', (ws) => {
                 break;
             case 'packet': {
                 const packet = message.payload.packet;
-                sc.applyCommands(player, packet, Date.now());
+                sc.applyKeyCommands(player, packet, Date.now());
                 break;
             }
         }
