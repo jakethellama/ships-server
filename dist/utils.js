@@ -1,3 +1,4 @@
+const EXTRAPING = 0;
 // @ts-ignore
 export function setCustomInterval(fn, ms) {
     const on = [true];
@@ -26,9 +27,15 @@ function customLoop(next, fn, ms, on) {
     }
 }
 export const sendWithLatency = (ws, type, payload) => {
-    setTimeout(() => {
+    // @ts-ignore
+    if (EXTRAPING === 0) {
         ws.send(JSON.stringify({ type, payload }));
-    }, 100 / 2);
+    }
+    else {
+        setTimeout(() => {
+            ws.send(JSON.stringify({ type, payload }));
+        }, EXTRAPING / 2);
+    }
 };
 export const closeEnough = function (x, y) {
     return Math.abs(x - y) < 0.01;
